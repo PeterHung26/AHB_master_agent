@@ -1,13 +1,14 @@
-import ahb_types_pkg::*;
 `include "uvm_macros.svh"
 
 class ahb_mtrxn extends uvm_sequence_item;
     // This file defines the AHB manager transaction class
+    import ahb_types_pkg::*;
+
     rand bit reset;
 
     // Address and control signals
-    rand bit [31:0] addr [];
-    rand bit [31:0] wdata [];
+    rand bit [ADDR_WIDTH-1:0] addr [];
+    rand bit [DATA_WIDTH-1:0] wdata [];
     rand size_t trans_size;
     rand rw_t rw;
     rand burst_t burst;
@@ -16,7 +17,7 @@ class ahb_mtrxn extends uvm_sequence_item;
     // Resonse signals from the subordinate
     resp_t resp;
     bit ready;
-    bit [31:0] rdata [];
+    bit [DATA_WIDTH-1:0] rdata [];
 
     // How many cycles manager will be busy
     rand bit busy[];
@@ -77,7 +78,7 @@ class ahb_mtrxn extends uvm_sequence_item;
                 foreach (addr[i]) begin
                     if(i > 0) begin
                         addr[i][1:0] == addr[i-1][1:0] + 1;
-                        addr[i][31:2] == addr[i-1][31:2];
+                        addr[i][ADDR_WIDTH-1:2] == addr[i-1][ADDR_WIDTH-1:2];
                     end
                 end
             end
@@ -85,7 +86,7 @@ class ahb_mtrxn extends uvm_sequence_item;
                 foreach (addr[i]) begin
                     if(i > 0) begin
                         addr[i][2:0] == addr[i-1][2:0] + 2;
-                        addr[i][31:3] == addr[i-1][31:3];
+                        addr[i][ADDR_WIDTH-1:3] == addr[i-1][ADDR_WIDTH-1:3];
                     end
                 end
             end
@@ -93,7 +94,7 @@ class ahb_mtrxn extends uvm_sequence_item;
                 foreach (addr[i]) begin
                     if(i > 0) begin
                         addr[i][3:0] == addr[i-1][3:0] + 4;
-                        addr[i][31:4] == addr[i-1][31:4];
+                        addr[i][ADDR_WIDTH-1:4] == addr[i-1][ADDR_WIDTH-1:4];
                     end
                 end
             end
@@ -103,7 +104,7 @@ class ahb_mtrxn extends uvm_sequence_item;
                 foreach (addr[i]) begin
                     if(i > 0) begin
                         addr[i][2:0] == addr[i-1][2:0] + 1;
-                        addr[i][31:3] == addr[i-1][31:3];
+                        addr[i][ADDR_WIDTH-1:3] == addr[i-1][ADDR_WIDTH-1:3];
                     end
                 end
             end
@@ -111,7 +112,7 @@ class ahb_mtrxn extends uvm_sequence_item;
                 foreach (addr[i]) begin
                     if(i > 0) begin
                         addr[i][3:0] == addr[i-1][3:0] + 2;
-                        addr[i][31:4] == addr[i-1][31:4];
+                        addr[i][ADDR_WIDTH-1:4] == addr[i-1][ADDR_WIDTH-1:4];
                     end
                 end
             end
@@ -119,7 +120,7 @@ class ahb_mtrxn extends uvm_sequence_item;
                 foreach (addr[i]) begin
                     if(i > 0) begin
                         addr[i][4:0] == addr[i-1][4:0] + 4;
-                        addr[i][31:5] == addr[i-1][31:5];
+                        addr[i][ADDR_WIDTH-1:5] == addr[i-1][ADDR_WIDTH-1:5];
                     end
                 end
             end
@@ -129,7 +130,7 @@ class ahb_mtrxn extends uvm_sequence_item;
                 foreach (addr[i]) begin
                     if(i > 0) begin
                         addr[i][3:0] == addr[i-1][3:0] + 1;
-                        addr[i][31:4] == addr[i-1][31:4];
+                        addr[i][ADDR_WIDTH-1:4] == addr[i-1][ADDR_WIDTH-1:4];
                     end
                 end
             end
@@ -137,7 +138,7 @@ class ahb_mtrxn extends uvm_sequence_item;
                 foreach (addr[i]) begin
                     if(i > 0) begin
                         addr[i][4:0] == addr[i-1][4:0] + 2;
-                        addr[i][31:5] == addr[i-1][31:5];
+                        addr[i][ADDR_WIDTH-1:5] == addr[i-1][ADDR_WIDTH-1:5];
                     end
                 end
             end
@@ -145,7 +146,7 @@ class ahb_mtrxn extends uvm_sequence_item;
                 foreach (addr[i]) begin
                     if(i > 0) begin
                         addr[i][5:0] == addr[i-1][5:0] + 4;
-                        addr[i][31:6] == addr[i-1][31:6];
+                        addr[i][ADDR_WIDTH-1:6] == addr[i-1][ADDR_WIDTH-1:6];
                     end
                 end
             end
