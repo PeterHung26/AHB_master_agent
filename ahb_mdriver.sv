@@ -22,7 +22,36 @@ class ahb_mdriver extends uvm_driver #(ahb_mtrxn);
     endfunction: connect_phase
 
     task run_phase(uvm_phase phase);
-        
+        ahb_mtrxn req;
+        forever begin
+            seq_item_port.get_next_item(req);
+            fork
+                begin: drive
+                    wait(ahbif.HRESETn);
+                    drive();
+                    disable error;
+                    disable reset;
+                end
+                begin: error
+                    wait(ahbif.HRESETn);
+                    forever begin
+                        if(ahbif.HRESP != OKAY && ahbif.HTRANS == IDLE) begin
+                            @(ahbif.mdrv_cb);
+                        end
+                        else begin
+
+                        end
+                    end
+                end
+                begin: reset
+
+                end
+            join   
+        end
     endtask: run_phase
+
+    task drive();
+
+    endtask: drive
 
 endclass: ahb_mdriver
